@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>facebook</title> 
+
+    <style>
+         *{
+    margin:0;
+    padding:0;
+    }
+        #main_wrap{
+            height: 80px;
+            width: 100%;
+            margin: auto;
+            background-color:#3B5999;
+            color: white;
+            padding: 13px 0 0;
+            overflow: hidden;
+            
+        }
+        #title{
+            padding:40 0px;
+            font-size: 24px;
+            font-weight: bold;
+            position: absolute;
+            color: white;
+            margin-left: 100px;
+            margin-top: 20px;
+        }
+
+        #login{
+            float: right;
+            color: white;
+            font-size: 11px;
+            margin-bottom: 12px;
+            margin-right: 30px;
+        }
+        #login>form>table a{
+            color: #D5D5D5;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+        
+        
+        
+        #middle_wrap{
+            background-image: linear-gradient(#FFFFFF,#C5C0FF);
+            height: 700px;
+        }
+        
+        #left_content{
+            margin-top: 70px;
+            margin-left: 80px;
+            font-size: 16px;
+            width: 450px;
+            font-weight: bold;
+            float: left;
+            position: absolute;
+        }
+         #right_content{
+            float: right;
+            height: 400px;
+            width: 500px;
+             margin-top: 100px;
+             margin-right: 40px;
+        }
+        #right_content>form>table input{
+            padding: 7px 11px;
+            border: 1px solid gray;
+            border-radius: 4px;
+            font-size: 16px;
+            margin: 5px 5px 5px 0;
+        }
+        #birth>p{
+            margin-top: 10px;
+        }
+        #gender,article{
+            margin-top: 10px;
+        }
+
+        #img{
+            height: 300px;
+            width:300px;
+            float:left;
+            margin-top: 15px;
+            margin: 0 50px 0 40px;
+        }
+
+        #right_content input[type=button]{
+             margin-top: 10px;
+            padding: 5px 40px;
+            background-color:green;
+            border: 1px solid gray;
+            border-radius: 3px;
+            color: white;
+        }
+        #right_content>table{
+            margin: 9px;
+        }
+        #right_content>a{
+            text-decoration: none;
+        }
+        #right_content>ne{
+            padding: 0 50px;
+        }
+        
+        
+        #footer{
+            background-color: white;
+            width:980px;
+            border-bottom: 1px solid gray;
+        }
+        #footer>ul>li{
+            display: inline;
+            font-size: 10px;
+            padding: 0 0 5px 10px;
+        }
+        #footer>ul>li>a{
+            text-decoration: none;
+            display: inline-block;
+            color: gray;
+        }
+        #plusbt{
+            border: 1px solid gray;
+            border-radius: 2px;
+            padding: 0 6px;
+            color: black;
+        }
+    </style>
+</head>
+    <body>
+        <div id="main_wrap">
+            <div id="header">
+            <div id="title">
+            <h1>facebook</h1>
+            </div>
+                
+                <div id="login">
+                <form>
+                    <table>
+                        <tr>
+                            <td>이메일 또는 휴대폰</td>
+                            <td colspan="2">비밀번호</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td><input type="password"></td>
+                            <td><a href="https://www.facebook.com/login/device-based/regular/login/?login_attempt=1&lwv=110"><input type="submit" value="로그인"></a></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a href="#">계정을 잊으셨나요?</a></td>
+                        </tr> 
+                    </table>
+                </form>
+                </div>
+        </div>  
+</div>
+        
+        <div id="middle_wrap">
+                <div id="contents">
+                    <div id="left_content">
+                    <h3>Facebook에서 전세계에 있는 친구, 가족, 지인들과 함께 이야기를 나눠보세요.</h3>
+                    <img id="img" src="image/facebook.png">
+                </div>
+                
+            
+                    <div id="right_content">
+                    <form>
+                    <table>
+                        <tr>
+                            <td><h1>가입하기</h1></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><h3>항상 지금처럼 무료로 즐기실 수 있습니다.</h3></td>
+                        </tr>
+                    <tr>
+                        <td>
+                        <input id="first name" type="text" placeholder="성(姓)">
+                        </td>
+                        <td>
+                        <input id="name" type="text" placeholder="이름(성은 제외)">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input id="ne" type="text" placeholder="휴대폰 번호 또는 이메일"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input id="pw" type="password" placeholder ="새 비밀번호"></td>
+                    </tr>
+                </table>
+            </form>
+        
+        
+            <div id="birth">
+                
+                    <h4>생일</h4>
+
+                <select id="year">
+                <option>2019</option>
+                <option>2018</option>
+                <option>2017</option>
+                </select>
+                <select id="month">
+                <option>1월</option>
+                <option>2월</option>
+                <option>3월</option>
+                </select>
+                <select id="day">
+                <option>1</option>
+                 <option>2</option>
+                 <option>3</option>
+                </select>
+          
+            </div>
+
+            
+           <div id="gender">
+               <h4>성별</h4>
+                <input type="radio" name="gender" id="w"><label for="w" class="gender">여성</label>
+                <input type="radio" name="gender" id="m"><label for="m" class="gender">남성</label>
+                    </div>
+
+          
+            <p id="article"><h6>가입하기 버튼을 클릭하면 Facebook의 <a href="#">약관.데이터정책 및 쿠키 정책</a>에 동의하게 됩니다. Facebook으로부터 SMS 알림을 받을 수 있으며 알림은 언제든지 옵트 아웃할 수 있습니다. </h6></p>
+            
+             <input id="bt" type="button" value="가입하기">
+                           
+                    </div>
+        </div>
+        
+        
+        <div id="footer">
+        <ul>
+            <li>한국어</li>
+                <li><a href="#">English (US)</a></li>
+                <li><a href="#">Tiếng Việt</a></li>
+                <li><a href="#">Bahasa Indonesia</a></li>
+                <li><a href="#">ภาษาไทย</a></li>
+                <li><a href="#">Español</a></li>
+                <li><a href="#">中文(简体)</a></li>
+                <li><a href="#">日本語</a></li>
+                <li><a href="#">Português (Brasil)</a></li>
+                <li><a href="#">Français (France)</a></li>
+                <li><a href="#">Deutsch</a></li>
+                <li><input type="button" id="plusbt" value="+" ></li>
+        </ul>
+        </div>
+            
+
+    </body>
+
+</html>
