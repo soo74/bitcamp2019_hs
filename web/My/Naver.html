@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>네이버 회원가입 jQuery</title>
+
+</head>
+
+<style>
+    * {
+        margin: 0 auto;
+    }
+
+    body {
+        background-color: #F5F6F8;
+    }
+
+    #member_wrap {
+        margin: 0 auto;
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+
+    #header {
+        margin-top: 40px;
+    }
+
+
+
+    input {
+        border: 0px;
+        height: 30px;
+        width: 100%;
+    }
+
+
+
+    .input_wrap {
+
+        width: 430px;
+        display: block;
+        height: 30px;
+        padding: 10px 13px;
+        background-color: white;
+        color: #eee;
+        border: 1px solid #ccc;
+    }
+
+    #birth_wrap {
+        overflow: hidden;
+    }
+
+
+
+    .birth {
+        width: 110px;
+        display: inline-block;
+        width: 120px;
+    }
+
+    select {
+
+        border: 0px;
+        height: 30px;
+        width: 100%;
+    }
+
+
+
+    #contents>div {
+        padding-top: 20px;
+    }
+
+
+
+    .phoneinput {
+        width: 300px;
+        display: inline-block;
+    }
+
+
+
+    #button1 {
+        width: 125px;
+        font-size: 15px;
+        background-color: #07A601;
+        color: white;
+        height: 45px;
+    }
+
+
+
+    #button2 {
+        font-size: 20px;
+        background-color: #07A601;
+        color: white;
+        height: 45px;
+        width: 458px;
+        margin-bottom: 20px;
+    }
+
+
+
+
+
+    #footer {
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+    }
+
+
+
+    #footer img {
+        width: 70px;
+    }
+
+
+
+    #footer>a {
+        text-decoration: none;
+        color: black;
+        font-size: 10px;
+    }
+
+
+
+    #footer>a>h5 {
+        font-weight: normal;
+        color: black;
+    }
+
+
+
+    #bottom {
+
+        display: inline-block;
+
+    }
+
+    #bottom>span {
+
+        font-size: 8px;
+
+    }
+
+    #bottom>span>a {
+
+        text-decoration: none;
+
+        color: black;
+
+    }
+
+</style>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+<script>
+    //유효성 검사   -------------------------------------------      
+
+
+
+    $(document).ready(function() {
+
+
+
+        $('#contents input, #contents select').focusin(function() {
+            $(this).parent().css('border', '1px solid #07A601');
+        });
+
+        $('#contents input, #contents select').focusout(function() {
+            $(this).parent().css('border', '1px solid #F5F6F8');
+        });
+
+
+
+
+
+        //아이디
+        $('#id').focusout(function() {
+
+            var idCheck = /^[A-Za-z0-9_-]{5,20}$/;
+            if ($(this).val().length < 1) {
+                $('#idMsg').html('필수 정보입니다.').css('color', 'red');
+            } else if (idCheck.test($(this).val())) {
+                $('#idMsg').html('멋진 아이디네요!').css('color', '#07A601');
+            } else {
+                $('#idMsg').html('5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.').css('color', 'red');
+            }
+
+        });
+
+
+
+
+
+        //비밀번호
+        $('#pw').focusout(function() {
+
+            var pwCheck = /^.*(?=.{8,16})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+            if ($(this).val().length < 1) {
+                $('#pwMsg').html('필수 정보입니다.').css('color', 'red');
+            } else if (pwCheck.test($(this).val())) {
+                $('#pwMsg').html('사용가능한 비밀번호입니다.').css('color', '#07A601');
+            } else {
+                $('#pwMsg').html('8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.').css('color', 'red');
+            }
+
+        });
+
+
+
+
+
+        //비밀번호 확인
+        $('#rpw').focusout(function() {
+
+            if ($(this).val().length < 1) {
+                $('#rpwMsg').html('필수 정보입니다.').css('color', 'red');
+            } else if ($(this).val() == $('#pw').val()) {
+                $('#rpwMsg').html('비밀번호가 일치합니다.').css('color', '#07A601');
+            } else {
+                $('#rpwMsg').html('비밀번호가 일치하지 않습니다.').css('color', 'red');
+            }
+
+
+
+        });
+
+
+
+        //이름
+        $('#name').focusout(function() {
+
+            var nameCheck = /^[가-힣a-zA-Z]$/;
+            if ($(this).val().length < 1) {
+                $('#nameMsg').html('필수 정보입니다.').css('color', 'red');
+            } else {
+                $('#nameMsg').css('display', 'none');
+            }
+
+        });
+
+
+
+        //생년월일
+        $('#year').focusout(function() {
+            if ($(this).val().length < 1) {
+                $('#yearMsg').html('태어난 년도 4자리를 정확하게 입력하세요.').css('color', 'red');
+            } else {
+                $('#yearMsg').html('태어난 일(날짜) 2자리를 정확하게 입력하세요.').css('color', 'red');
+            }
+
+        });
+
+
+
+        //전화번호 인증
+        $('#phone').focusout(function() {
+
+            var phoneCheck = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+            if ($(this).val().length < 1) {
+                $('#cernumMsg').html('필수 정보입니다.').css('color', 'red');
+            } else if (phoneCheck.test($(this).val())) {
+                $('#cernumMsg').html('형식에 맞지 않는 번호입니다.').css('color', 'red');
+            } else {
+                $('#cernumMsg').css('display', 'none');
+            }
+        });
+
+
+
+        //입력되지않은 경우에 가입하기 눌렀을때
+
+        $('#button2').on('click', function() {
+            if ($('#id').val().length > 0 && $('#pw').val().length > 0 && $('#rpw').val().length > 0 && $('#name').val().length > 0 && $('#phone').val().length > 0) {
+                alert('가입이 완료되었습니다.');
+            } else {
+
+                $('#idMsg').html('필수 정보입니다.').css('color', 'red');
+                $('#pwMsg').html('필수 정보입니다.').css('color', 'red');
+                $('#rpwMsg').html('필수 정보입니다.').css('color', 'red');
+                $('#yearMsg').html('태어난 년도 4자리를 정확하게 입력하세요.').css('color', 'red');
+                $('#genderMsg').html('필수 정보입니다.').css('color', 'red');
+                $('#cernumMsg').html('필수 정보입니다.<br>인증이 필요합니다.').css('color', 'red');
+            }
+        });
+    });
+
+</script>
+
+<body>
+
+    <div id="header">
+        <center><a href="https://www.naver.com/"><img src="../html5/images/naver.png"></a></center>
+    </div>
+
+    <div id="member_wrap">
+        <div id="contents">
+            <div id="id_wrap"><label for="userId"> 아이디 </label>
+                <span class="input_wrap">
+                    <input type="text" id="id" name="id" class="member"></span>
+                <span id="idMsg"></span>
+
+            </div>
+
+            <div id="pw_wrap"><label> 비밀번호 </label>
+                <span class="input_wrap">
+                    <input type="password" id="pw" name="pw" class="member">
+                </span>
+                <span id="pwMsg"></span>
+
+
+            </div>
+
+            <div id="rpw_wrap"><label> 비밀번호 재확인 </label>
+                <span class="input_wrap">
+                    <input type="password" id="rpw" name="rpw" class="member">
+                </span>
+                <span id="rpwMsg"></span>
+            </div>
+
+
+
+
+
+            <div id="name_wrap"><label> 이름 </label>
+                <span class="input_wrap">
+                    <input type="text" id="name" name="name" class="member">
+                </span>
+                <span id="nameMsg"></span>
+            </div>
+
+
+
+
+
+            <div id="birth_wrap"><label> 생년월일 </label>
+                <br>
+                <span class="input_wrap birth">
+                    <input type="text" id="year" name="year" placeholder="년(4자)">
+                </span>
+                <span id="yearMsg"></span>
+
+
+
+                <span class="input_wrap birth">
+                    <select id="month" name="month">
+                        <option>월</option>
+                        <option>1월</option>
+                        <option>7월</option>
+                    </select>
+                </span>
+                <span id="monthMsg"></span>
+
+
+
+                <span class="input_wrap birth">
+                    <input type="text" id="day" name="day" placeholder="일">
+                </span>
+                <span id="dayMsg"></span>
+
+
+            </div>
+
+            <div><label> 성별 </label>
+                <span class="input_wrap">
+                    <select id="gender" name="gender">
+                        <option>선택</option>
+                        <option>남자</option>
+                        <option>여자</option>
+                    </select>
+                </span>
+            </div>
+            <span id="genderMsg"></span>
+
+
+            <div><label> 본인확인 이메일(선택) </label><br>
+                <span class="input_wrap">
+                    <input type="email" id="email" name="email" placeholder="선택 입력">
+                </span>
+            </div>
+
+
+            <div><label> 휴대전화 </label><br>
+                <div>
+                    <span class="input_wrap">
+                        <select>
+                            <option>대한민국 +82</option>
+                            <option>미국/캐나다 +1</option>
+                            <option>싱가포르+65</option>
+                        </select>
+                    </span>
+
+
+
+                    <span class="input_wrap phoneinput">
+                        <input type="text" id="phone" name="phone" placeholder="전화번호 입력" class="member">
+                    </span>
+
+
+                    <input type="button" id="button1" value="인증번호 받기" class="btn">
+                    <span class="input_wrap" style="background-color:#F5F6F8">
+                        <input type="text" id="cerNum" name="cerNum" placeholder="인증번호 입력하세요" disabled>
+                    </span>
+                    <span id="cernumMsg"></span>
+
+                </div>
+            </div>
+
+
+            <div id="button2Wrap">
+                <input type="button" id="button2" value="가입하기" class="btn">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="footer">
+
+        <a href="#">
+            <h5>이용약관 | <span style="font-weight: bold">개인정보처리방침</span> | 책임의 한계와 법적고지 | 회원정보 고객센터</h5>
+        </a>
+        <div id="bottom"><img src="../html5/images/naver.png"><span>Copyright <a href="www.naver.com">NAVER Corp.</a> All Rights Reserved.</span></div>
+
+    </div>
+
+</body>
+</html>
