@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class javajdbc_hw {
+public class javajdbc_hw  {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException{
 		
