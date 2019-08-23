@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+        div#memberlist {
+            overflow: hidden;
+        }
+        div.card {
+            float: left;
+            width: 33%;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+	<h1>회원 가입</h1>
+	<hr>
+	<form id="form">
+        아이디 <input type="text" name="uId"> <br>
+        비밀번호 <input type="text" name="uPW"> <br>
+        이름 <input type="text" name="uName"><br>
+        <input type="submit" value="회원가입">
+        
+    </form>
+
+
+
+
+
+<script>
+	$(document).ready(function(){
+         
+        var list = {
+            uId : 'CoolinHot',
+            uPW : 'pass',
+            uName : '홍길동'
+        };
+        
+        $('#form').submit(function(){
+           
+            $.ajax({
+                url : 'http://localhost:8080/mm/rest-api/members',
+                type : 'POST',
+                data : JSON.stringify(list),
+                contentType : 'application/json; charset=utf-8',
+                dataType : 'json',
+                success : function(data){
+                    alert(data);
+                }
+            });
+            
+            return false;
+        });
+        
+        
+        
+        
+        
+        
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	});
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
