@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- interface의 full name을 namespace의 속성으로 사용 : 필수 -->
+<mapper namespace="com.bitcamp.mm.member.dao.MemberDaoInterface">
+
+	<!-- select 결과 메핑을 위한 resultMap 설정 -->
+	<resultMap id="resultMemberInfo" type="com.bitcamp.mm.member.domain.MemberInfo">
+		<id property="idx" column="idx" />
+		<result property="u_id" column="u_id" />
+		<result property="u_pw" column="u_pw" />
+		<result property="u_name" column="u_name" />
+		<result property="u_photo" column="u_photo" />
+		<result property="regDate" column="date" />
+		<result property="verify" column="verify" />
+		<result property="code" column="code" />
+	</resultMap>
+	
+	
+
+	<!-- 회원로그인 -->
+	<select id="selectMemberById" resultMap="resultMemberInfo">
+	
+		select * from member where u_id=#{id}
+		
+	</select>
+
+	<!-- 아이디 중복체크 -->
+	<select id="selectMemberById2" resultMap="resultMemberInfo">
+		select * from member
+		where u_id=#{u_id}
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="com.bitcamp.mm.member.domain.MemberInfo">
+		
+		insert into member (u_id, u_name, u_pw, u_photo, code) values (#{u_id},#{u_name},#{u_pw},#{u_photo},#{code})
+	</insert>
+
+
+	<select id="selectMemberByIdx" resultMap="resultMemberInfo">
+		select * from member where idx=#{idx}
+	</select>
+
+
+	<update id="memberUpdate"
+		parameterType="com.bitcamp.mm.member.domain.MemberInfo">
+		update member set u_name=#{u_name}, u_pw=#{u_pw},u_photo=#{u_photo} where idx=#{idx}
+	</update>
+
+
+	<delete id="memberDelete">
+		delete from member where idx=#{idx}
+	</delete>
+
+
+	<select id="selectTotalCount" parameterType="com.bitcamp.mm.member.domain.SearchParam" resultType="int">
+		select count(*) from member
+
+		<where>
+
+			<if test="stype != null">
+				<if test="stype == 'both'">
+					u_id LIKE CONCAT('%', #{keyword}, '%')
+					or u_name LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="stype == 'id'">
+					u_id LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="stype == 'name'">
+					u_name LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+
+			</if>
+
+
+		</where>
+
+	</select>
+
+
+
+	
+	<select id="selectList" parameterType="map" resultMap="resultMemberInfo">
+		
+		SELECT * FROM member
+	
+		<where>
+		
+			<if test="search != null">
+				<if test="search.stype == 'both'">
+					<include refid="whereId"/>
+					<include refid="whereName"/>
+				</if>
+				<if test="search.stype == 'id'">				
+					<include refid="whereId"/>
+				</if>
+				<if test="search.stype == 'name'">
+					<include refid="whereName"/>
+				</if>
+			</if>
+			
+		</where>
+		
+		limit #{index}, #{count}
+	</select>
+	
+	
+	
+		
+	<sql id="whereId">
+		or u_id LIKE CONCAT('%', #{search.keyword}, '%')
+	</sql>
+		
+	<sql id="whereName">
+		or u_name LIKE CONCAT('%', #{search.keyword}, '%')
+	</sql>
+
+	
+	
+
+	<select id="selectAllList" resultMap="resultMemberInfo" >
+		
+		select * from member order by u_name
+		
+	</select>
+	
+	<update id="verify">
+		update member set verify='Y' where u_id=#{param1} and code=#{param2} 
+	</update>
+	
+
+
+
+
+
+
+
+
+
+
+</mapper>
+
+
+ 
+ 
