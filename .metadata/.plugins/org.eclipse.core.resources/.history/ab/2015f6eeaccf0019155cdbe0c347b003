@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+        
+        
+
+        div.card {
+          
+            width: 30%;
+            border: 1px solid #aaa;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+     
+        <h1>회원리스트</h1>
+    <div id="listFrame"></div>
+    
+
+   
+    <script>
+        
+        
+        $(document).ready(function() {
+            
+            cfmlist();
+        });
+        
+
+        
+        
+         function cfmlist(){
+        
+		$.ajax({
+			url : 'http://localhost:8080/cm/rest/members',
+			type : 'GET',
+			success : function(data){
+                
+                var html = '';
+                
+                for(var i=0; i<data.length;i++){
+                    html += '<div class="card">\n';
+                    html += '아이디      : ' + data[i].u_id +' <br>\n';
+                    html += '이름(닉네임) : ' + data[i].u_name +' <br>\n';
+                    html += '사진 : ' + data[i].u_photo +' <br>\n';
+                    html += '이메일인증여부 : ' + data[i].verify + ' <br>\n';
+                    html += '가입일자 : ' + data[i].regDate + ' <br>\n';
+                    html += '</div>\n';
+                }
+                
+                $('#listFrame').html(html);
+			}
+		
+            });
+         }
+               
+  
+
+        
+      
+    </script>
+
+
+
+
+
+
+
+</body>
+
+</html>

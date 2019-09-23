@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;DBCPInit.java&apos; to &apos;DateShareProject/src/jdbc&apos;&#x0D;&#x0A;- Original project: &apos;CultureProject1&apos;&#x0D;&#x0A;- Destination element: &apos;DateShareProject/src/jdbc&apos;&#x0D;&#x0A;- Original element: &apos;com.bitcamp.pj.jdbc.DBCPInit.java&apos;" description="Copy compilation unit" destination="=DateShareProject/src&lt;jdbc" element1="/src\/main\/java&lt;com.bitcamp.pj.jdbc{DBCPInit.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1566780671008" units="1" version="1.0"/>
+</session>

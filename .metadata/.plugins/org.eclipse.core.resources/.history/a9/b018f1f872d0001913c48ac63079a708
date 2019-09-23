@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+        div#memberlist {
+            overflow: hidden;
+        }
+        div.card {
+            float: left;
+            width: 33%;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+			<h1>회원 리스트</h1>
+			<div id="memberlist"></div>
+			
+
+			
+			
+		    <div id="editFrame" style="display: none">
+		        
+		        <h3>회원정보 수정</h3>
+		        <hr>
+		        <form id="editForm" onsubmit="return false;" method="post" enctype="multipart/form-data">
+		            <input type="hidden" name="idx" id="idx">
+		            아이디 <input type="text" name="u_id" id="euId" readonly> <br>
+		            비밀번호 <input type="text" name="u_pw" id="euPW" required> <br>
+		            이름 <input type="text" name="u_name" id="euName" required><br>
+		            파일 <input type="file" name="u_photo" id="euPhoto" ><br>
+		            <input type="submit" value="회원수정" onclick="editSubmit();">
+		
+		        </form>
+		    </div>
+		    
+
+
+
+
+<script>
+			$(document).ready(function(){
+				list();		
+		        
+			});
+		    
+		    
+	
+	
+	
+			    
+			  function formSubmit(){
+			        
+			        var formData = new FormData($('#form'));
+			
+			        
+			        
+			        $.ajax({
+			                url : 'http://localhost:8080/mm/rest/members',               
+			                data : formData,                
+			                processData: false,
+			                contentType: false,
+			                success : function(data){
+			                    disNone();
+			                    list();
+			                }
+			            });
+			    }
+			    
+    
+   			 function editSubmit(){
+        
+       
+            
+	            
+	
+	            var editFormData = new FormData();
+	            editFormData.append('u_id',$('#euId').val());
+	            editFormData.append('u_pw',$('#euPW').val());
+	            editFormData.append('u_name',$('#euName').val());
+	       
+	       
+	            
+	            $.ajax({
+	                url : 'http://localhost:8080/mm/rest/members/'+$('#idx').val(),
+	                type : 'PUT',
+	                data : editFormData,   
+	                success : function(data){
+	                    
+	                    if(data == 'success') {
+	                        
+	                    	alert('수정되었습니다.');
+	                        $('#editFrame').css('display', 'none');
+
+	                    }
+	                },
+	                error : function(e){
+	                    alert('error');
+	                }
+	            });
+	            
+	            
+	            return false;
+	        
+	        
+	    }
+	    
+    
+    
+		    function del(idx){
+		        
+		        if(confirm('정말 삭제하시겠습니까?')){
+		           $.ajax({
+		                url : 'http://localhost:8080/mm/rest/members/'+idx,
+		                type : 'DELETE',
+		                success : function(data){
+		             
+		                    if(data=='SUCCESS'){
+		                        alert('삭제가 완료되었습니다');
+		                        list();
+		                    }          
+		                }
+		            });
+		           
+		           
+		           }
+				
+				
+				
+		    }
+    
+		    function list(){
+		        
+		    	
+		    	$.ajax({
+					url : 'http://localhost:8080/mm/rest/members',
+					type : 'GET',
+					success : function(data){
+		                
+		                var html = '';
+		                for(var i=0; i<data.length;i++){
+		                    html += '<div class="card">\n';
+		                    html += 'idx : ' + data[i].idx +' <br>\n';
+		                    html += '아이디      : ' + data[i].u_id +' <br>\n';
+		                    html += '이름(닉네임) : ' + data[i].u_name +' <br>\n';
+		                    html += '사진 : ' + data[i].u_photo +' <br>\n';
+		                    html += '이메일인증여부 : ' + data[i].verify + ' <br>\n';
+		                    html += '가입일자 : ' + data[i].regDate + ' <br>\n';
+		                    html += '<button onclick="del('+ data[i].idx +')">삭제하기</button><br>\n';
+		                    html += '<button onclick="editPreSet('+ data[i].idx +')">수정하기</button><br>\n';
+		                    html += '</div>\n';
+		                }
+		                
+		                $('#memberlist').html(html);
+					}
+				
+		            });
+		         }
+               
+
+    
+		    function editPreSet(idx){
+		        
+		        disNone();
+		        
+		        $('#editFrame').css('display', 'block');
+		        
+		           $.ajax({
+		                url : 'http://localhost:8080/mm/rest/members/'+idx,
+		                type : 'GET',
+		                success : function(data){
+		                    $('#eidx').val(idx);
+		                    $('#euId').val(data.u_id);
+		                    $('#euName').val(data.u_name);
+		                }
+		            });
+		           
+		           
+		           
+				
+		    }
+		    function disNone() {
+		        $('#editFrame').css('display', 'none');
+		    }
+		  
+    
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

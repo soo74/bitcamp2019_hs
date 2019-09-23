@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+    
+        
+      
+        
+        
+        
+        
+    </style>
+</head>
+<body>
+
+
+  <ul>
+		<li><a href="main.html">홈</a></li>
+		<li><a href="login.html">로그인 </a></li>
+		<li><a href="regist1.html">회원가입</a></li>
+		<li><a href="memberlist.html">회원리스트</a></li>
+		<li><a href="logout.html">로그아웃</a></li>
+	    </ul>
+        
+
+
+
+
+<script>
+	$(document).ready(function(){
+         
+        });
+        
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

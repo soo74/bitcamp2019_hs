@@ -1,0 +1,5 @@
+package com.bitcamp.qa.service;
+
+public class WriteMessageService {
+
+}

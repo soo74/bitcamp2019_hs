@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+        div#memberlist {
+            overflow: hidden;
+        }
+        div.card {
+            float: left;
+            width: 33%;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+	<h1>회원 리스트</h1>
+	<hr>
+    <div style="text-align: right"><button id="regBtn">회원가입</button></div>
+	<div id="memberlist"></div>
+    
+    <div id="editFrame" style="display: none">
+        
+        <h3>회원정보 수정</h3>
+        <hr>
+        <form id="editForm" onsubmit="return false;" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="idx" id="idx">
+            아이디 <input type="text" name="uId" id="euId" readonly> <br>
+            비밀번호 <input type="text" name="uPW" id="euPW" required> <br>
+            이름 <input type="text" name="uName" id="euName" required><br>
+            파일 <input type="file" name="uPhoto" id="euPhoto" ><br>
+            <input type="submit" value="회원수정" onclick="editSubmit();">
+
+        </form>
+    </div>
+    
+    <div id="regFrame" style="display: none">
+        
+        <h3>회원 가입</h3>
+        <hr>
+        <form id="form"  onsubmit="return false;" method="post" enctype="multipart/form-data">
+            아이디 <input type="text" name="uId" id="uId" required> <br>
+            비밀번호 <input type="text" name="uPW" id="uPW" required> <br>
+            이름 <input type="text" name="uName" id="uName" required><br>
+            파일 <input type="file" name="uPhoto" id="uPhoto" ><br>
+            <input type="submit" value="회원가입" onclick="formSubmit();">
+
+        </form>
+    </div>
+
+
+
+
+
+<script>
+	$(document).ready(function(){
+		list();		
+        
+        
+        $('#regBtn').click(function(){
+            disNone();
+            $('#regFrame').css('display', 'block');
+        });
+        
+        
+        //$('#form').submit(function(){
+                 
+            /*$.ajax({
+                url : 'http://localhost:8080/mm/rest-api/members',
+                type : 'POST',
+                data : JSON.stringify({
+                    uId : $('#uId').val(),
+                    uPW : $('#uPW').val(),
+                    uName : $('#uName').val()
+                }),
+                contentType : 'application/json; charset=utf-8',
+                dataType : 'json',
+                success : function(data){
+                    alert(data);
+                }
+            });*/
+            
+            /*$.ajax({
+                url : 'http://localhost:8080/mm/rest/members',
+                type : 'POST',
+                data : { // uId=abc&uPw=123&uName=cool
+                    uId : $('#uId').val(),
+                    uPW : $('#uPW').val(),
+                    uName : $('#uName').val()
+                },
+                success : function(data){
+                    alert(data);
+                }
+            });*/
+            
+    /*        alert($('#form').serialize());
+            
+            $.ajax({
+                url : 'http://localhost:8080/mm/rest/members',
+                type : 'POST',
+                data : $('#form').serialize(),
+                success : function(data){
+                    alert(data);
+                    disNone();
+                    list();
+                }
+            });
+            
+            return false;
+        });
+        */
+        
+        
+        
+        
+        
+		
+        
+        
+	});
+    
+    
+    
+    function formSubmit(){
+        
+        var formData = new FormData($('#form'));
+//        formData.append('uId',$('#uId').val());
+//        formData.append('uPW',$('#uPW').val());
+//        formData.append('uName',$('#uName').val());
+//        formData.append("uPhoto", $("#uPhpto")[0].files[0]);
+        
+        
+        
+        
+        $.ajax({
+                url : 'http://localhost:8080/mm/rest/members',               
+                data : formData,                
+                processData: false,
+                contentType: false,
+                success : function(data){
+                    alert(data);
+                    disNone();
+                    list();
+                }
+            });
+    }
+    
+    
+    function editSubmit(){
+        
+       
+            
+            
+            //alert($('#editForm').serialize());
+            var editFormData = new FormData();
+            editFormData.append('uId',$('#euId').val());
+            editFormData.append('uPW',$('#euPW').val());
+            editFormData.append('uName',$('#euName').val());
+            //editFormData.append("uPhoto", $("#euPhpto").files);
+        
+      
+            alert('수정중');
+            
+            $.ajax({
+                url : 'http://localhost:8080/mm/rest/members/'+$('#idx').val(),
+                type : 'PUT',
+                data : editFormData,   
+                success : function(data){
+                    alert(data);
+                    if(data == 'success') {
+                        alert('수정되었습니다.');
+                        $('#editFrame').css('display', 'none');
+                        //list();
+                    }
+                },
+                error : function(e){
+                    alert('error');
+                }
+            });
+            
+            
+            return false;
+        
+        
+    }
+    
+    
+    
+    function del(idx){
+        
+        if(confirm('삭제하시겠습니까?')){
+           $.ajax({
+                url : 'http://localhost:8080/mm/rest/members/'+idx,
+                type : 'DELETE',
+                success : function(data){
+                    //alert(JSON.stringify(data));
+                    if(data=='SUCCESS'){
+                        alert('삭제되었습니다');
+                        list();
+                    }          
+                }
+            });
+           
+           
+           }
+		
+		
+		
+    }
+    
+    function list(){
+        
+    	
+    	$.ajax({
+			url : 'http://localhost:8080/mm/rest/members',
+			type : 'GET',
+			success : function(data){
+                
+                var html = '';
+                
+                for(var i=0; i<data.length;i++){
+                    html += '<div class="card">\n';
+                    html += 'idx : ' + data[i].idx +' <br>\n';
+                    html += '아이디      : ' + data[i].u_id +' <br>\n';
+                    html += '이름(닉네임) : ' + data[i].u_name +' <br>\n';
+                    html += '사진 : ' + data[i].u_photo +' <br>\n';
+                    html += '이메일인증여부 : ' + data[i].verify + ' <br>\n';
+                    html += '가입일자 : ' + data[i].regDate + ' <br>\n';
+                    html += '<button onclick="del('+ data[i].idx +')">삭제하기</button><br>\n';
+                    html += '<button onclick="editPreSet('+ data[i].idx +')">수정하기</button><br>\n';
+                    html += '</div>\n';
+                }
+                
+                $('#memberlist').html(html);
+			}
+		
+            });
+         }
+               
+
+    
+    function editPreSet(idx){
+        
+        disNone();
+        
+        $('#editFrame').css('display', 'block');
+        
+           $.ajax({
+                url : 'http://localhost:8080/mm/rest/members/'+idx,
+                type : 'GET',
+                success : function(data){
+                    $('#eidx').val(idx);
+                    $('#euId').val(data.uId);
+                    $('#euName').val(data.uName);
+                }
+            });
+           
+           
+           
+		
+    }
+    function disNone() {
+        $('#regFrame').css('display', 'none');
+        $('#editFrame').css('display', 'none');
+    }
+  
+    
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
