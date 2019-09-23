@@ -1,6 +1,0 @@
-INDEX VERSION 1.4+C:\Users\5CLASS-184\git\bitcamp2019_hs\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-580185929.index
-1047991354.index
-4220601584.index
-1210008503.index
-2879519385.index

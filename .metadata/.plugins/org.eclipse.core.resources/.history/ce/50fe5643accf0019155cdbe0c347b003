@@ -1,5 +1,0 @@
-package com.bitcamp.qa.dao;
-
-public interface MessageSessionDao {
-
-}

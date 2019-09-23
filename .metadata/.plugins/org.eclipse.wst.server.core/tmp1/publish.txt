@@ -1,3 +1,0 @@
-#Tomcat publish data
-#Mon Sep 09 11:49:42 KST 2019
-org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\5CLASS-184\\.m2\\repository\\org\\springframework\\spring-web\\4.3.18.RELEASE\\spring-web-4.3.18.RELEASE.jar=WEB-INF/lib/spring-web-4.3.18.RELEASE.jar
