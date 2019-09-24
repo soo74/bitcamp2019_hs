@@ -32,7 +32,8 @@
   com.bitcamp.mm.member.service.MemberRegService;
   
   @RestController // @ResponseBody 생략한다.
-  @RequestMapping("/rest/members") public class MemberRestFulController {
+  @RequestMapping("/rest/members")
+  public class MemberRestFulController {
   
   @Autowired 
   private MemberLoginService loginService;
