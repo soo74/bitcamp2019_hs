@@ -5,5 +5,5 @@ var urlStr = 'http://idols.com/q?group=EXID&name=하니&since=';
 
 var parsed = url.parse(urlStr);
 
-//console.log(parsed);
-console.log(parsed.host);
+console.log(parsed);
+console.log(parsed).host;
