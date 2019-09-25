@@ -7,6 +7,8 @@ fs.appendFile(path, '\n Additional data', function(err) {    //'Additional data'
     console.error('파일 내용 추가 실패 : ', err);
     }
     console.log('파일 내용 추가 성공');
+
+    
     });
 
 
