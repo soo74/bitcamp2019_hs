@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamrun.runbike.admin.dao.AdminDao">
+
+<resultMap id="userInfoMap" type="com.teamrun.runbike.user.domain.UserInfo">
+	<id property="u_idx" column="u_idx" />
+	<result property="u_id" column="u_id" />
+	<result property="u_pw" column="u_pw" />
+	<result property="u_name" column="u_name" />
+	<result property="u_photo" column="u_photo" />
+	<result property="regdate" column="regdate" />
+	<result property="u_code" column="u_code" />
+	<result property="u_sns" column="u_sns" />
+</resultMap>
+
+
+
+		<!-- 회원리스트 - 관리자 -->
+		<select id="selectAllListAdmin" resultMap="userInfoMap" >
+			select * from user order by u_idx
+		</select>
+		
+		
+		<!-- 회원 삭제 - 관리자 -->    <!-- user 테이블의 외래키까지 지워지게 on delete cascade (문의글까지 지워지도록) -->
+		<delete id="memberDeleteAdmin">		
+			delete from user where u_idx=#{u_idx}
+		</delete>
+		
+
+
+
+
+
+
+</mapper>
