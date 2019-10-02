@@ -31,6 +31,11 @@ public class MemberRestFulController {
 	  private MemberDeleteService deleteService;
 	 
 	 
+	  
+	  
+
+	  
+	  
 
 	  @CrossOrigin
 	  @GetMapping 
@@ -40,7 +45,7 @@ public class MemberRestFulController {
 		  
 		  ResponseEntity<List<UserInfo>> entity = new ResponseEntity<List<UserInfo>>(list,HttpStatus.OK);
 		  
-		  		return entity; 
+		  return entity; 
 	  }
 
 

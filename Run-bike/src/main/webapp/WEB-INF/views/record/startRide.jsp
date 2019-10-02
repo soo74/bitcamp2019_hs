@@ -239,7 +239,6 @@ font-family: 'Exo', sans-serif;
                 // GeoLocation을 이용해서 접속 위치를 얻어옵니다
                 navigator.geolocation.getCurrentPosition(function(position) {
 
-                    //시작지점을 startLonLat에 저장합니다.
                     startLonLat = position.coords;
                     /*startTime =*/
 
@@ -252,7 +251,7 @@ font-family: 'Exo', sans-serif;
 
                     var size = new Tmap.Size(24, 38);
                     var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));
-                    var icon = new Tmap.IconHtml('<img src=http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_s.png />', size, offset);
+                    var icon = new Tmap.IconHtml('<img src=http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_i.png />', size, offset);
                     var marker = new Tmap.Marker(lonlat, icon);
                     markerStartPointLayer.addMarker(marker);
 

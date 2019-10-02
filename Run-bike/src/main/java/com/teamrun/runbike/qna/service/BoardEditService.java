@@ -39,11 +39,8 @@ public class BoardEditService implements BoardService{
 		dao = template.getMapper(BoardDaoInterface.class);
 		
 		System.out.println("BoardEditService: "+editRequest);
-		
-		
-		
+	
 		Message message = editRequest.toMessage();
-		
 		System.out.println("수정서비스 :"+message);
 		
 		int rCnt = dao.boardUpdate(message);

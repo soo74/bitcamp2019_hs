@@ -5,43 +5,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.teamrun.runbike.qna.dao.BoardDaoInterface;
 import com.teamrun.runbike.qna.domain.ListViewBoardData;
 import com.teamrun.runbike.qna.domain.Message;
 import com.teamrun.runbike.qna.domain.SearchParam;
+import com.teamrun.runbike.user.domain.UserInfo;
 
 
 @Service("boardlistService")
-public class BoardListService implements BoardService {
-	
-
-
-	@Inject
-	private SqlSessionTemplate template;
+public class BoardListService implements BoardService{
 	
 	// 자동 메퍼 이용해 생성할 dao
 	private BoardDaoInterface dao; 
 
-	
+	@Autowired
+	private SqlSessionTemplate template;
+
 	// 1. 한페이지에 보여줄 게시글의 개수
-	private static final int MESSAGE_COUNT_PER_PAGE = 5;
+	final int MESSAGE_COUNT_PER_PAGE = 5;
 	
 	
-	public ListViewBoardData getListData(int currentPageNumber, SearchParam searchParam) {
+	public ListViewBoardData getListData(int pgNum, SearchParam searchParam) {
 		
 		// dao 생성
 		dao = template.getMapper(BoardDaoInterface.class);
 		
 		ListViewBoardData pagelistdata = new ListViewBoardData();
 		
+		       
 		
 		//현재 페이지 번호
-		pagelistdata.setCurrentPageNumber(currentPageNumber);
+		pagelistdata.setCurrentPageNumber(pgNum);
 		
 		//전체 게시물 개수
 		int totalCnt = dao.selectTotalCount(searchParam);
@@ -56,34 +54,29 @@ public class BoardListService implements BoardService {
 		}
 		pagelistdata.setPageTotalCount(totalPageCnt);
 		
-		int index = (currentPageNumber-1)*MESSAGE_COUNT_PER_PAGE;
+		int index = (pgNum-1)*MESSAGE_COUNT_PER_PAGE;
 		
-		List<Message> messageList = null;
+		List<Message> boardList = null;  
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("search", searchParam);
 		params.put("index", index);
 		params.put("count",  MESSAGE_COUNT_PER_PAGE);
 		
-		//memberList = dao.selectList(index, MEMBER_CNT_List);
-		messageList = dao.selectList(params);
-		System.out.println("사이즈 : : : : " + totalCnt);
-		System.out.println("리스트 사이즈 : : : : " + messageList.size());
-		
-		pagelistdata.setBoardList(messageList);
-		for(Message m : messageList) {
-			System.out.println(m);
-		}
-		
-		// 1 -> 9-0 =9, 2 -> 9-3=6
-		int no = totalCnt - index;
-		pagelistdata.setNo(no);
-		
-		pagelistdata.setTotalCount(totalCnt);
+		boardList = dao.selectList(params);
 		
 
-	
-	return pagelistdata;
+		
+//		System.out.println("전체 문의글 개수: " + totalCnt);
+//		System.out.println("한 페이지당 문의글 개수: " + boardList.size());
+			
+		pagelistdata.setBoardList(boardList);
+		int no = totalCnt - index;
+		
+		pagelistdata.setNo(no);
+		
+		return pagelistdata;
+
 	
 }
 		

@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,6 +20,7 @@
 <link href="https://fonts.googleapis.com/css?family=Anton|Exo&display=swap" rel="stylesheet">
 <title>Hello, world!</title>
 <style>
+	
 	#list-tab a{
 		padding: .5rem
 	}
@@ -40,62 +42,66 @@
 	.tab-pane.show{
 		display: block;
 	}
-	#none-record-status{
+	.none-record-status{
 		text-align: center;
 	}
 	
-	#none-record-status{
+	.none-record-status{
 		padding: 50px 10px
 	}
-	#none-record-status h4{
-		margin: 20px 0;
-	}
-	
-	#none-record-status p{
-		font-size: 16px;
-	}
-	
-	#none-record-status a{
+	.none-record-status a{
 		display: inline-block;
 		padding: 10px;
 		text-align:center;
 		margin-top: 80px;
-		background-color: #888;
+		background-color: #007bff;
 		width: 60%;
 		border-radius: 5px;
 		color: white;
 		font-weight: bold;
 		
 	}	
-	#record-status .row .card{
+	
+	#record-wrapper h4{
+		margin: 20px 0;
+	}
+	
+	
+	#record-wrapper .row .card{
 		border: none;
 		text-align: center;
 	}
-	#record-status strong{
+	#user-record strong{
 		font-family: 'Anton', sans-serif;
 		font-size: 50px;
 		height: 200px;
 		line-height: 200px;
 	}
-	#record-status .card:first-child strong{
-		font-size: 76px;
+	#user-record .card:first-child strong{
+		font-size: 60px;
 		
 	}
 	
-	#record-status strong span{
+	#user-record strong span{
 		padding-left: 15px;
 		font-size: 35px;
 	}
-	#record-status .card p{
+	#user-record .card p{
 		font-family: 'Exo', sans-serif;
+	}
+	.ix{
+		padding-top: 6rem;
+		font-size: 24px;
+		font-weight: bold;
+		text-align: center;
 	}
 	
 	@media screen (max-width: 767px){
-		#record-status strong{
+		#user-record strong{
 			font-size: 40px;
 		}
 		
-		#record-status strong span{
+		#user-record strong span{
 			padding-left: 5px;
 			font-size: 20px;
 		}
@@ -109,7 +115,7 @@
 	<!-- 페이지 tab 시작 -->
 	<div class="mb-md-5">
 		<div
-			class="list-group list-group-horizontal col-md-4 col-sm-12 mx-auto text-center"
+			class="list-group list-group-horizontal col-md-4 col-sm-12 mx-auto text-center pr-0"
 			role="tablist">
 			<a class="list-group-item list-group-item-action active"
 				id="list-profile-list" data-toggle="tab" href="#myprofile" role="tab"
@@ -122,15 +128,23 @@
 	</div>
 	<!-- 페이지 tab 끝 -->
 	<!-- container 시작 -->
-	<div class="container">
-		<div id="myprofile" class="tab-pane active fade show" role="tabpanel" aria-labelledby="list-profile-list">
+	<div class="container px-1">
+		<div id="myprofile" class="tab-pane active fade show pb-5" role="tabpanel" aria-labelledby="list-profile-list">
 			<h4 class="font-weight-bold pt-5 mb-4">마이 페이지</h4>
 			<h5 class="font-weight-bold">내 정보</h5>
 			<hr>
 			<div>
 				<div class="img-wrapper text-center">
-					<img
+					<c:choose>
+					<c:when test = "${fn : contains(loginInfo.u_id, '@naver.com')}">
+						<img
+						src="${loginInfo.u_photo}" align="center" width="auto" height="200px">
+					</c:when>
+					<c:otherwise>
+						<img
 						src="<c:url value='/uploadfile/userphoto/${loginInfo.u_photo}'/>" align="center" width="auto" height="200px">
+					</c:otherwise>
+					</c:choose>
 				</div>
 				<div class="row-profile-name text-center pt-4 gtr-uniform">
 					<strong>${loginInfo.u_name} 님</strong>
@@ -228,45 +242,46 @@
 			<h4 class="font-weight-bold pt-5 mb-4">나의 기록</h4>
 			<hr>
 			<section id="record-wrapper">
-				<div id="none-record-status">
-					<h3 class="font-weight-bold mx-auto mt-3 text-center">아직 기록이 없습니다.</h3>
-					<p class="text-center">새롭게 달려보는 건 어떠세요?</p>
-					<a href="" class="">라이딩 시작!</a>
-				</div>
-				<div id="record-status">
-					<p>회원님이 활동한 기록입니다.</p>
-					
-					<div class="row col-12 gtr-uniform">
-						<h4 class="col-12">혼자 라이딩</h4>
-						<div class="col-12">
-							<div class="card card-record-view"><strong id="totalKM"><span>KM</span></strong><p>라이딩 총 KM</p></div>
-						</div>
-						<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="totalCount"><span>회</span></strong><p>라이딩 총 횟수</p></div></div>
-						<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="totalTime"><span>분</span></strong><p>라이딩 총 시간</p></div></div>
-						<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="avgKM"><span>KM</span></strong><p>라이딩 평균 KM</p></div></div> 
-						<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="avgTime"><span>분</span></strong><p>라이딩 평균 시간</p></div></div> 
-						
-						<div class="row col-12 gtr-uniform">
-							<h4 class="col-12">최근 기록</h4>
-							<table id="recent-record" class="table">
-								
-							</table>
-						</div>
-					</div>
-					
-					<div class="row col-12 gtr-uniform">
-						<h4 class="col-12">같이 달리기</h4>
-						<div class="col-12">
-							<div class="card card-record-view"><strong id="totalKM"><span>KM</span></strong><p>라이딩 총 KM</p></div>
-						</div>
-						<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="totalCount"><span>회</span></strong><p>라이딩 총 횟수</p></div></div>
-						<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="totalTime"><span>분</span></strong><p>라이딩 총 시간</p></div></div>
-						<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="avgKM"><span>KM</span></strong><p>라이딩 평균 KM</p></div></div> 
-						<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="avgTime"><span>분</span></strong><p>라이딩 평균 시간</p></div></div> 
-					</div>
-					
-				</div>
 				
+				<div id="user-record-wrapper">
+					<h4 class="col-12 font-bold"><i class="fas fa-biking"></i> 혼자 라이딩</h4>
+					<div id="user-record">
+						<div class="row col-12 gtr-uniform">
+							<div class="col-12">
+								<div class="card card-record-view"><strong id="totalKM"><span>KM</span></strong><p>라이딩 총 KM</p></div>
+							</div>
+							<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="totalCount"><span>회</span></strong><p>라이딩 총 횟수</p></div></div>
+							<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="totalTime"><span>분</span></strong><p>라이딩 총 시간</p></div></div>
+							<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="avgKM"><span>KM</span></strong><p>라이딩 평균 KM</p></div></div> 
+							<div class="col-sm-12 col-md-6 col-lg-3"><div class="card card-record-view"><strong id="avgTime"><span>분</span></strong><p>라이딩 평균 시간</p></div></div> 
+							
+							<div class="row col-12 gtr-uniform mt-4">
+								<h6 class="col-12"><i class="fas fa-history"></i> 최근 기록</h6>
+								<table id="recent-record" class="table">
+									
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="none-record-status" id="user-record-status">
+						<h3 class="font-weight-bold mx-auto mt-3 text-center">아직 기록이 없습니다.</h3>
+						<p class="text-center">새롭게 달려보는 건 어떠세요?</p>
+						<a href="<c:url value='/record/startRide'/>" class="">라이딩 시작!</a>
+					</div>					
+				</div>
+				<div id="party-record-wrapper" style="border-top: 1px dotted #ccc;margin-top:40px">
+					<h4 class="col-12 font-bold"><i class="fas fa-users"></i> 같이 달리기</h4>
+					<div id="party-record">
+						
+						<!-- 	
+						<table class="table" id="party-list"></table> -->
+					</div>
+					<div class="none-record-status" id="party-record-status">
+						<h3 class="font-weight-bold mx-auto mt-3 text-center">아직 기록이 없습니다.</h3>
+						<p class="text-center">다른 회원님과 함께 달려보는 건 어떠세요?</p>
+						<a href="<c:url value='/party'/>" class="">같이 달리기 시작!</a>
+					</div>
+				</div>	
 			</section>
 		</div>
 		<footer id="footer" class="pt-4 my-md-5 pt-md-5 border-top">
@@ -343,14 +358,15 @@
     			url: '/runbike/user/record/'+u_idx,
     			success: function(data){
     				if(data.userRecord.total_count>0){
-    					$('#none-record-status').css('display','none');
-    					$('#record-status').css('display','block');
+    					$('#user-record-status').css('display','none');
+    					$('#user-record').css('display','block');
     					$('#totalCount').prepend(data.userRecord.total_count);
     					$('#totalKM').prepend(data.userRecord.total_KM);
     					$('#totalTime').prepend(data.userRecord.total_time);
     					$('#avgKM').prepend(data.userRecord.avg_KM);
     					$('#avgTime').prepend(data.userRecord.avg_time);
     					
+    				
     					var table = $('#recent-record');
     					var html = '';
     					
@@ -387,8 +403,45 @@
     					
     					
     				} else{
-    					$('#none-record-status').css('display','block');
-    					$('#record-status').css('display','none');
+    					$('#user-record-status').css('display','block');
+    					$('#user-record').css('display','none');
+    				}
+    				console.log(data.partyRecord[0].cnt);
+    				if(data.partyRecord[0].cnt>0){
+    					$('#party-record-status').css('display','none');
+    					$('#party-record').css('display','block');
+    					
+    					var html = '';
+    					
+    					var ix = data.partyRecord.length;
+    					
+    						html+='<p>참여했던 방 정보입니다.</p>'
+    						html+='<h5>총 러닝 횟수 '+data.partyRecord[0].cnt+'</h5>';
+    					for(var j in data.partyRecord){
+    						$('#party-record-status').css('display','none');
+        					$('#party-record').css('display','block');
+    						html += '<div class="card">';
+    						html += '<div class="row no-gutters">';
+    						html+='<div class="col-2 ix">'+(ix--)+'</div>'
+    						html+=	'<div class="card-body col-10">';
+    						html+=	'<small class="text-mute">'+data.partyRecord[j].p_time+'</small>';
+    						html+=	'<h5 class="card-title bold">'+data.partyRecord[j].p_name+'</h5>';
+    						html+=	'<p class="card-title">출발지 - '+data.partyRecord[j].p_start_info+'</p>';
+    						html+=	'<p>도착지 - '+data.partyRecord[j].p_end_info+'</p>';
+    						html+=	'<p class="card-text">총 거리 - '+data.partyRecord[j].p_riding_km+'km</p>';
+    						html+=	'<small class="text-mute text-info">'+data.partyRecord[j].pc_finishYN+'</small>';
+    						html+=	'</div>';
+    						html+=  '</div>';
+    						
+    					}
+    					
+    					
+    					$('#party-record').html(html);
+    					
+    					
+    				} else{
+    					$('#party-record-status').css('display','block');
+    					$('#party-record').css('display','none');
     				}
     			}
     		});
@@ -397,15 +450,15 @@
     		
     		// 회원 정보 업데이트 기능
     		$('#userUpdateForm').on('submit',function(){
-    			if($('#u_name').val()!= "" && $('#u_pw').val != "" && $('#u_repw').val() != $('#u_pw').val()){
+    			if($('#u_name').val()!= "" && $('#u_pw').val != "" && $('#u_repw').val() == $('#u_pw').val()){
 	    			var formData = new FormData();
 	    			var file = $('#u_photo')[0].files[0];
-	    			
-	    			formData.append('u_idx',$('#u_idx').val());
+	    			formData.append('u_idx',$('#u_idx').val())
 	    			formData.append('u_id',$('#u_id').val())
 	    			formData.append('u_name',$('#u_name').val());
 	    			formData.append('u_pw',$('#u_pw').val());
 	    			formData.append('oldFile',$('#oldFile').val());
+	    			console.log(formData);
 	    			if(file != undefined){
 						formData.append('u_photo',file);
 					}
@@ -418,6 +471,7 @@
 	    				contentType: false,
 	    				processData : false,
 	    				success: function(data){
+	    					console.log(data);
 	    					if(data==1){
 	    						alert("정보가 수정되었습니다");
 	    						location.reload();
@@ -428,9 +482,10 @@
 	    			});
     			} else{
     				
-    			}   			
+    			}   
     			return false;
     		});
+    		
     		
     		
     		
@@ -449,7 +504,7 @@
         		    				success: function(data){
         		    					if(data==1){
         			    					alert("탈퇴를 완료했습니다.");
-        			    					location.href="/runbike/main";
+        			    					location.href="/runbike/";
         		    					} else{
         		    						alert("비밀번호를 다시 확인하세요.");
         		    					}
@@ -468,6 +523,10 @@
     				}
     			});
     			return false;
+    		});
+    		
+    		$('.modal').on('hidden.bs.modal', function(){
+    		    $(this).find('form')[0].reset();
     		});
     		
     	});
