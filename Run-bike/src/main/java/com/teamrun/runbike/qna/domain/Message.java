@@ -1,7 +1,9 @@
 package com.teamrun.runbike.qna.domain;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class Message {
 
@@ -11,30 +13,51 @@ public class Message {
 	private String q_title;
 	private String q_content;
 	private String q_writer;
+	
+	
+	//@JsonFormat(pattern="yyyy-MM-dd")
 	private Date regdate;
+
+	
+	
+	//날짜 재설정
+	private String regdate_s;
+	SimpleDateFormat setDate = new SimpleDateFormat("yyyy.MM.DD HH:mm:ss");
+	
+	public String getRegdate_s() {
+		return setDate.format(regdate);
+	}
+
+	public void setRegdate_s(Date regdate) {
+		this.regdate_s = setDate.format(regdate);
+	}
+
+
 	
 
-//	private String message_regdate;
-//	
-//	
-//	//날짜 재설정
-//	SimpleDateFormat setDate = new SimpleDateFormat("yyyy.MM.DD HH:mm:ss");
-//	
-//	
-//	public String getMessage_regdate() {
-//		return message_regdate;
-//	}
-//
-//	public void setMessage_regdate(Date message_regdate) {
-//		this.message_regdate = setDate.format(message_regdate);
-//	}
 
-
+	
+	
+	
+	
+	
+	
 
 
 	public Message() {
 	}
 	
+
+
+
+
+
+
+
+
+
+
+
 
 
 

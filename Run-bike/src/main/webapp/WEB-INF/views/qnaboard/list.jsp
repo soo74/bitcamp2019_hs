@@ -32,6 +32,8 @@
 		padding : 3px 10px;		
         height:30px;
 	}
+	
+
 	#paging{
 		float: center;
 		width: 30px;
@@ -66,99 +68,64 @@
 <%@ include file="/WEB-INF/views/frame/header.jsp" %>
 <!-- 해더 끝 -->
 				
-	<H1> 문의글 리스트</H1>
-	<div style="text-align: right;"><a href="board/writeform">글쓰기</a></div>	    
+				
+				
+	<!-- 문의글 전체 리스트, 페이징 포함 --> 
+
+		<H1> 문의글 리스트</H1>
+		<div style="text-align: right;"><a href="board/writeform">글쓰기</a></div>	    
+		
+		<article id="list">	
+		<table id="board_all" class="table"></table>
+		</article>
+		
+		<article id="searchBox"></article>
+
+		<article id="paging"> </article>
+
 	
-	<article id="list">	
-	<table id="board_all" class="table"></table>
-	</article>
-	<article id="paging">	
 	
-	</article>
 	
 
-
-
-			
-			
-<!-- <div id="editFrame" style="display: none" > -->
-<!--       <div class="page-header"> -->
-<!--      <h3>문의글 수정</h3> -->
-<!--     </div> -->
-<!--          <hr> -->
-<!--          <div style="padding : 30px;"> -->
-         
-<!--          <form id="editForm" method="post" onsubmit="return false;"> -->
-<!--          <div class="row"> -->
-<!--           <div class="form-group"> -->
-<%--             <input type="hidden" name="u_idx" id="eu_idx" value="${loginInfo.u_idx}"> --%>
-<!--             <input type="hidden" name="q_num" id="q_num" value="32"> -->
-
-<!--              <label>글번호</label> -->
-<!--             <input type="text" name="q_num" id="eq_num" class="form-control" readonly /> -->
-<!--              <label>작성자</label> -->
-<!--             <input type="text" name="q_writer" id="eq_writer" class="form-control" readonly /> -->
-<!--            </div> -->
-<!--           </div> -->
-<!--              <div class="row"> -->
-<!--           <div class="form-group"> -->
-<!--                <label>제목</label> -->
-<!--             <input type="text" name="q_title" id="eq_title" class="form-control" required/> -->
-<!--           </div> -->
-<!--          </div> -->
-<!--           <div class="row"> -->
-<!--            <div class="form-group"> -->
-<!--             <label>내용</label> -->
-<!--             <textarea name="q_content" id="eq_content" class="form-control" rows="15" required ></textarea> -->
-<!--            </div> -->
-<!--       </div> -->
-<!--       <input type="submit" value="수정" onclick="editSubmit();"> -->
-
- 
-<!--          </form> -->
-<!--       </div> -->
-<!--       </div> -->
       
       
-      
-      			
-<div id="editFrame" style="display: none" >
-      <div class="page-header">
-     <h3>문의글 수정</h3>
-    </div>
-         <hr>
-
-         
-         <form id="editForm" method="post" onsubmit="return false;">
-
-            <input type="hidden" name="u_idx" id="eu_idx" value="${loginInfo.u_idx}">
-           <!--  <input type="hidden" name="q_num" id="q_num" value="32"> -->
-	<!-- <table width="700" bordercolor="lightgray" align="center"> -->
-	<table id=editTable>
-		<tr>
-			<td id="title">글번호</td>
-		  	<td><input type="text" name="q_num" id="eq_num" class="form-control" readonly /></td>
-            <td id="title">작성자</td>
-            <td><input type="text" name="q_writer" id="eq_writer" class="form-control" readonly /></td>
-        </tr>
-            <tr>
-            <td id="title">제 목</td>
-            <td><input type="text" name="q_title" id="eq_title" class="form-control" required/></td>        
-        </tr>
-        <tr>
-            <td id="title"> 내 용</td>
-            <td><textarea name="q_content" id="eq_content" class="form-control" cols="70" rows="15" required ></textarea></td>        
-        </tr>
-        <tr>
-          <td><input id="editbtn" type="submit" value="수정" onclick="editSubmit();"></td>
-        </tr>
- 
-    </table>    
-    </form>
-
-
-      </div>
-
+     <!-- 문의글 수정 폼 --> 	
+	<div id="editFrame" style="display: none" >
+	      <div class="page-header">
+	     <h3>문의글 수정</h3>
+	    </div>
+	         <hr>
+	
+	         
+	         <form id="editForm" method="post" onsubmit="return false;">
+	
+	            <input type="hidden" name="u_idx" id="eu_idx" value="${loginInfo.u_idx}">
+	          		 <!--  <input type="hidden" name="q_num" id="q_num" value="32"> -->
+					<!-- <table width="700" bordercolor="lightgray" align="center"> -->
+				<table id=editTable>
+					<tr>
+						<td id="title">글번호</td>
+					  	<td><input type="text" name="q_num" id="eq_num" class="form-control" readonly /></td>
+			            <td id="title">작성자</td>
+			            <td><input type="text" name="q_writer" id="eq_writer" class="form-control" readonly /></td>
+			        </tr>
+			            <tr>
+			            <td id="title">제 목</td>
+			            <td><input type="text" name="q_title" id="eq_title" class="form-control" required/></td>        
+			        </tr>
+			        <tr>
+			            <td id="title"> 내 용</td>
+			            <td><textarea name="q_content" id="eq_content" class="form-control" cols="70" rows="15" required ></textarea></td>        
+			        </tr>
+			        <tr>
+			          <td><input id="editbtn" type="submit" value="수정" onclick="editSubmit();"></td>
+			        </tr>
+			 
+			    </table>    
+	   		 </form>
+       </div>
+	
+	      
       
       
       
@@ -167,80 +134,44 @@
       
       
       
-      
-
+	 <!-- 문의글 상세보기 -->
 	 <div id="detailFrame" style="display: none">
-		    <div class="page-header">
-		    <hr>
-			  <h3>문의글 상세보기</h3>
+		     <div class="page-header">
+		   	 <hr>
+			 	 <h3>문의글 상세보기</h3>
 			 </div>
-        	<hr> 
+        	  <hr> 
         	
         	<form id="detailForm" onsubmit="return false;">
         	<!-- <div class="card"> -->
-        	<div class="row">
-	         <div class="form-group">
-            <input type="hidden" name="u_idx" id="u_idx" value="${loginInfo.u_idx}">
-            <!-- <input type="hidden" name="q_num" id="dq_num"> -->
-            
-            <table id=detailTable>
-				<tr>
-					<td id="title">글번호</td>
-				  	<td> <input type="text" name="q_num" id="dq_num" class="form-control" readonly /></td>
-		            <td id="title">작성자</td>
-		            <td><input type="text" name="q_writer" id="dq_writer" class="form-control" readonly /></td>
-		        </tr>
-		            <tr>
-		            <td id="title">제 목</td>
-		            <td><input type="text" name="q_title" id="dq_title" class="form-control" readonly/></td>        
-		        </tr>
-		        <tr>
-		            <td id="title"> 내 용</td>
-		            <td><textarea name="q_content" id="dq_content" class="form-control" cols="70" rows="15" readonly ></textarea></td>        
-		        </tr>
-    		</table>    
-    		</div>
-    		</div>
+	        	<div class="row">
+		         <div class="form-group">
+	            <input type="hidden" name="u_idx" id="u_idx" value="${loginInfo.u_idx}">
+	            <!-- <input type="hidden" name="q_num" id="dq_num"> -->
+	            
+		            <table id=detailTable>
+						<tr>
+							<td id="title">글번호</td>
+						  	<td> <input type="text" name="q_num" id="dq_num" class="form-control" readonly /></td>
+				            <td id="title">작성자</td>
+				            <td><input type="text" name="q_writer" id="dq_writer" class="form-control" readonly /></td>
+				        </tr>
+				            <tr>
+				            <td id="title">제 목</td>
+				            <td><input type="text" name="q_title" id="dq_title" class="form-control" readonly/></td>        
+				        </tr>
+				        <tr>
+				            <td id="title"> 내 용</td>
+				            <td><textarea name="q_content" id="dq_content" class="form-control" cols="70" rows="15" readonly ></textarea></td>        
+				        </tr>
+		    		</table>    
+	    		</div>
+	    		</div>
     	<!-- 	</div> -->
     		</form>
-    		</div>
+    </div>
     		
             
-            
-            
-            
-            
-            
-            
-            
-<!--              <label>글번호</label> -->
-<!--             <input type="text" name="q_num" id="dq_num" class="form-control" readonly />       -->
-<!--              <label>작성자</label> -->
-<!-- 	           <input type="text" name="q_writer" id="dq_writer" class="form-control" readonly /> -->
-<!-- 	          </div> -->
-<!-- 	         </div> -->
-<!--              <div class="row"> -->
-<!-- 	         <div class="form-group"> -->
-<!-- 	              <label>제목</label> -->
-<!-- 	           <input type="text" name="q_title" id="dq_title" class="form-control" readonly/> -->
-<!-- 	         </div> -->
-<!-- 	        </div> -->
-<!--           <div class="row"> -->
-<!-- 	          <div class="form-group"> -->
-<!-- 	           <label>내용</label> -->
-<!-- 	           <textarea name="q_content" id="dq_content" class="form-control" rows="15" readonly ></textarea> -->
-<!-- 	          </div> -->
-<!-- 	  		 </div> -->
-<!-- 	  		 <a href="boardreply.jsp?q_num="+q_num>답글달기</a> -->
-        
-
-<!--         	</form> -->
-<!--    			</div> -->
-<!--    			</div> -->
-
-
-
-
 
 
 
@@ -299,7 +230,8 @@
 	$(document).ready(function(){
 				
 				list();		
-
+				
+	
 				
 			});
 		    
@@ -345,7 +277,6 @@
          $.ajax({
              //url : 'http://localhost:8080/runbike/rest/board/'+q_num,
              url : './rest/board/'+q_num,
-             
              type : 'POST',
              data : {q_num:q_num, q_writer:q_writer, q_title:q_title, q_content:q_content},   
              success : function(data){
@@ -366,7 +297,6 @@
          
          return false;
      
-     
  		}
 	
 	
@@ -383,17 +313,21 @@
 			
 			//alert(num);
 			
+			
+			
+			
+			
 			$.ajax({
 				//url : 'http://localhost:8080/runbike/rest/board/list',
 				url : './rest/board/list',
 				type : 'GET',
-				data : {page:pgNum, searchType : $('#searchType').val(), keyword : $('#keyword').val()},
+				data : {page:pgNum, stype : $('#stype').val(), keyword : $('#keyword').val()},
 				success : function(data){
 
 					
+					
 					var table = $('#board_all');
 					var html = '';
-					
 
 					html +='<thead class>';
 					html +='<tr bgcolor="#81BEF7">';
@@ -412,21 +346,24 @@
 					html+='<tbody>';
 					var list = data.boardList;
 					for(var i = 0; i < list.length; i++){
-						console.log(list[i]);
+						//console.log(list[i]);
 						
 						var q_num = list[i].q_num;
 						var u_idx = list[i].u_idx;
 						var q_title = list[i].q_title;
 						var q_writer = list[i].q_writer;
 						var q_content = list[i].q_content;
-						var regdate = list[i].regdate;
+						var regdate_s = list[i].regdate_s;
+						
+						
+						
 
 						html += '<tr>';
 						html += '<td>'+q_num+'</td>';
 						html += '<td><a onclick="detaildata('+q_num+')" style="font-weight:bold;text-decoration:underline;font-size:18px;">'+q_title+'</a></td>';
 						html += '<td>'+u_idx+'</td>';
 						html += '<td>'+q_writer+'</td>';
-						html += '<td>'+regdate+'</td>';
+						html += '<td>'+regdate_s+'</td>';
 						
 						
 						
@@ -450,27 +387,47 @@
 		                html +='</tr>';
 		                html +='<hr>';
 					}
-						html+= '</tbody>';
+						
 					
-						table.html(html);
-						
-						
-						html += '<div class="searchBox">';
-						html += '<form id="searchBox" onsubmit="return false">';
-						html += '<select id="stype"><option value="q_title">제목</option><option value="q_writer">작성자</option></select>';
-						html += '<input type="text" name="keyword" id="keyword">';
-						html += '<input type="submit" value="검색" onclick="list('+pgNum+')">';
-						html += '</form>';
-						html += '</div>';
+						 html+= '</tbody>';
+				     	 table.html(html);
+				      
+				      
+				      
+				      var searching = '';
+				      
+				      
+				      searching += '<div class="searchBox">';
+				      searching += '<form id="searchBox" onsubmit="return false">';
+				      searching += '<select name="stype"><option value="q_title">제목</option><option value="q_writer">작성자</option></select>';
+				      searching += '<input type="text" name="keyword" id="keyword">';
+ 				      //searching += '<input type="submit" value="검색" href="#" onclick="list('+pgNum+')">';
+ 				      searching += '<input type="submit" value="검색" a href="list('+pgNum+')">';
+ 				      
+ 				     //searching += '<div><input type="submit" value="검색" a href="list?p='+pgNum+'></a></div>';
+ 				     // searching += '<input type="submit" value="검색" a href="list?p='+pgNum+'&stype='+${param.stype}+'&keyword='+${param.keyword}+'">'+pgNum+'</a>';
+				      searching += '</form>';
+				      searching += '</div>';
+				      
+// 				      searching += '<div class="searchBox input-group">';
+// 				      searching += '<form id="searchBox" class="input-group-prepend" onsubmit="return false" class="float-lg-right">';
+// 				      searching += '<select id="stype" class="custom-select"><option value="q_title">제목</option><option value="q_writer">작성자</option></select>';
+// 				      searching += '<input type="text" class="control" name="keyword" id="keyword">';
+// 				      searching += '<input type="submit" class="btn btn-primary" value="검색" onclick="list('+pgNum+')">';
+// 				      searching += '</form>';
+// 				      searching += '</div>';
+
 
 					var paging = '';
 					
 					for(var j=1 ; j<data.pageTotalCount+1 ; j++){
-						paging += '<span class="paging"><a onclick="list('+j+')" >'+j+'</a></span> ';
+						paging += '<span class="paging"><a onclick="list('+j+')" >['+j+']</a></span> ';
+						//paging += '<div><a href="list?p='+j+'&stype=${param.stype}&keyword=${param.keyword}">['+j+']</a></div>';
+						//paging += '<div><a href="list?p='+j+'">['+j+']</a></div>';
 					}
-
+					//<div><a href="managelist?p=${num}&stype=${param.stype}&keyword=${param.keyword}">${num}</a> </div> 
 					
-					
+					$('#searchBox').html(searching);						
 					$('#list').html(html);
 					$('#paging').html(paging);
 					
@@ -488,7 +445,7 @@
       	var html = '';
       	
 	        html += '<div id="writeBox'+q_num+'" class="row" style="display:block; border:1px solid #bbb">';
-	        html += '<strong><h3>답글작성</h3></strong>';
+	        html += '<h3>답글작성</h3>';
 	        html += '<form id="replywrite'+q_num+'" onsubmit="return false" method="post">';
 	       /*  html += '<input type="hidden" value="'+u_idx+'" id="u_idx" name="u_idx">'; */
 	        html += '<input type="hidden" value="10" id="u_idx" name="u_idx">';         //관리자만 작성가능
@@ -504,7 +461,7 @@
 			html += '</tr>';
 			html += '<tr>';
 			html += '<td id="title"><label for="rp_text">내용</label></td>'
-			html += ' <td><textarea class="form-control"  placeholder="내용을 입력하세요." required id="rp_text" name="rp_text" col="100"></textarea></td>'
+			html += ' <td><textarea class="form-control"  placeholder="내용을 입력하세요." required id="rp_text" name="rp_text" col="100" row="100"></textarea></td>'
 			html += '</tr>';
 			html += '<tr>';
 			html += ' <td><input type="submit" value="작성완료" onclick="submitForm('+q_num+')"></td>';
@@ -518,37 +475,7 @@
 	    } 
       
       
-      
-      
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-			
-// 			//답글 작성폼
-//  		    function replywrite(q_num){
- 		    	
- 		    	
-// 	        	var html = '';
-// 		        html += '<div id="writeBox'+q_num+'" class="row" style="display:block; border:1px solid #bbb">';
-// 		        html += '<strong><h3>답글작성</h3></strong>';
-//  		        html += '<form id="replywrite'+q_num+'" onsubmit="return false" method="post">';
-//  		       /*  html += '<input type="hidden" value="'+u_idx+'" id="u_idx" name="u_idx">'; */
-//  		        html += '<input type="hidden" value="10" id="u_idx" name="u_idx">';         //관리자만 작성가능
-//  		        html += '<input type="hidden" id="q_num" name="q_num" value="'+q_num+'">';
-//  		        html += '<div class="form-group col-lg-8"><label for="rp_writer">작성자</label><textarea class="form-control"  placeholder="관리자" id="rp_writer" name="rp_writer" col="100" required></textarea></div>';
-//  		        html += '<div class="form-group col-lg-11"><label for="rp_title">제목</label><textarea class="form-control"  placeholder="제목을 입력하세요." required id="rp_title" name="rp_title" col="100"></textarea></div>';
-//  		        html += '<div class="form-group col-lg-11"><label for="rp_text">내용</label><textarea class="form-control"  placeholder="내용을 입력하세요." required id="rp_text" name="rp_text" col="100"></textarea></div>';
-// 		        html += '<div class="form-group center"><input type="submit" class="btn btn-lg btn-primary" value="작성완료" onclick="submitForm('+q_num+')"></div>';
-//  		        html += '</form>';
-//  		        html += '</div>';
 
-//  		        $('#getreplylist'+q_num).html(html);
-//  		    } 
 			
 	
  		    //답글 작성
@@ -656,13 +583,13 @@
 			                for(var i=0; i<data.length;i++){
 			                	//html += '<div class="card">\n';
 			                	 html += '<div id="writeBox'+q_num+'" class="row" style="display:block;">';
-								html +='<table width="700" border="3" align="center">';
+								html +='<table width="800" border="3" align="center">';
 
 			                	 html += '<tr>';
 			                	 html += '<td id="title" style="font-weight:bold">작성자</td>';
 			                	 html += '<td>'+data[i].rp_writer+'</td>';
 			                	 html += '<td id="title" style="font-weight:bold">작성일자</td>';
-			                	 html += '<td>'+data[i].rp_regdate+'</td>';
+			                	 html += '<td>'+data[i].rp_regdate_s+'</td>';
 			                	 html += '</tr>';
 			                	 html += '<tr>';
 			                	 html += '<td id="title" style="font-weight:bold">제목</td>';
@@ -792,10 +719,8 @@
 			                    $('#dq_content').val(data.q_content);
 			                }
 					
-					
 					});
-					
-					
+										
 			}
 			
 			
@@ -823,6 +748,9 @@
 		                success : function(data){
 		                        if(data=='SUCCESS'){
 		                        alert('삭제가 완료되었습니다');
+		                        
+		                        //상세보기 창이 떠있을때 해당문의글 삭제시 상세보기 창을 안보이게
+		                        $('#detailFrame').css('display','none');
 		                        list();
 		                    }		                    
 		                },
@@ -836,6 +764,8 @@
                
 		//답글삭제(답글 글 번호로)
 		function delreply(rp_num){
+			
+			var q_num =$('#q_num').val();      
 			
 			if(confirm('정말 삭제하시겠습니까?')){
 		           $.ajax({

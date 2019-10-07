@@ -110,7 +110,6 @@
 						</if>
 
 					</if>
-
 			 	</where>
 			 </select>
 		
@@ -121,8 +120,7 @@
 		
 	<!-- 게시판 리스트 : 검색을 위해 동적쿼리 적용 -->
 	
-	<select id="selectList" parameterType="map"
-		resultMap="messageResultmap">
+	<select id="selectList" parameterType="map" resultMap="messageResultmap">
 		
 		SELECT * FROM board
 		
@@ -138,7 +136,6 @@
 			</if>
 			
 		</where>
-
 		limit #{index}, #{count}
 	</select>
 	

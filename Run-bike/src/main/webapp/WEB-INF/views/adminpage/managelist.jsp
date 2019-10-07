@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,10 +45,8 @@
 		height: 30px;
 		line-height: 30px;
 		text-align: center;
-		border : 1px solid #333;
-		
+		border : 1px solid #333;	
 		border-radius:10px;
-		
 		margin: 0 5px;
 	}
 	
@@ -88,6 +88,7 @@
 		</tr>
 		
 		<c:forEach items="${viewData.memberList}" var="userInfo" varStatus="stat" >
+		<%-- <fmt:formatDate value="${regdate}" pattern="yyyy.MM.dd" /> --%>
 		<tr>
 			<td>${viewData.no-stat.index}</td>
 			<td>${userInfo.u_idx}</td>
@@ -120,12 +121,11 @@
 	
 	
 	<c:if test="${viewData.totalCount>0}">
-	<div id="pagingBox">
-		<c:forEach begin="1" end="${viewData.pageTotalCount}" var="num">
-			<div><a href="managelist?p=${num}&stype=${param.stype}&keyword=${param.keyword}">${num}</a> </div> 
-		</c:forEach>
-		
-	</div>
+		<div id="pagingBox">
+			<c:forEach begin="1" end="${viewData.pageTotalCount}" var="num">
+				<div><a href="managelist?p=${num}&stype=${param.stype}&keyword=${param.keyword}">${num}</a> </div> 
+			</c:forEach>
+		</div>
 	</c:if>
 	
 </div>
@@ -151,15 +151,15 @@ function del(u_idx){
     
     if(confirm('정말 삭제하시겠습니까?')){
        $.ajax({
-            //url : 'http://localhost:8080/runbike/rest/admin/'+u_idx,
-            url : '../../rest/admin/'+u_idx,
+            url : 'http://localhost:8080/runbike/rest/admin/'+u_idx,
+           // url : '../../rest/admin/'+u_idx,
             type : 'DELETE',
             success : function(data){
          
                 if(data=='SUCCESS'){
                     alert('삭제가 완료되었습니다');
-                   // location.href= 'http://localhost:8080/runbike/adminpage/managelist';
-                    location.href= '../../adminpage/managelist';
+                   location.href= 'http://localhost:8080/runbike/adminpage/managelist';
+                   // location.href= '../../adminpage/managelist';
                 }          
             }
         });
