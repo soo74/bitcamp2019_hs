@@ -2,7 +2,6 @@ package com.teamrun.runbike.qna.controller;
 
 
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +85,6 @@ public class RestFulController {
 			@RequestParam(value="keyword", required = false) String keyword){
 		
 
-
 		SearchParam searchParam = null;
 		
 		if(stype!=null && keyword!=null && !stype.isEmpty() && !keyword.isEmpty() ) {
@@ -140,7 +138,8 @@ public class RestFulController {
 		
 		//int t = Integer.parseInt(q_num);
 		
-			
+		
+		
 		int cnt = boardeditService.edit(editRequest, null);
 
 		return new ResponseEntity<String>(cnt > 0 ? "success" : "fail", HttpStatus.OK);

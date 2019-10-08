@@ -21,7 +21,8 @@ public class ListViewBoardData {
 		public ListViewBoardData() {}
 		
 		
-		public ListViewBoardData(List<Message> boardList, int totalCount, int no, int currentPageNumber,int pageTotalCount) {
+		public ListViewBoardData(List<Message> boardList, int totalCount, int no, int currentPageNumber,
+				int pageTotalCount) {
 			super();
 			this.boardList = boardList;
 			this.totalCount = totalCount;
@@ -63,6 +64,16 @@ public class ListViewBoardData {
 		}
 		
 
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
 		
 		
 

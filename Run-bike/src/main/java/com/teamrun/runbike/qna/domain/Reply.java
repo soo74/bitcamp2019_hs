@@ -1,6 +1,5 @@
 package com.teamrun.runbike.qna.domain;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reply {
@@ -22,28 +21,6 @@ public class Reply {
 	private int u_idx;
 	
 	
-	//날짜 format
-	private String rp_regdate_s;
-	
-	
-	SimpleDateFormat setDate = new SimpleDateFormat("yyyy.MM.DD HH:mm:ss");
-	
-	
-
-	
-	public String getRp_regdate_s() {
-		return setDate.format(rp_regdate);
-	}
-
-
-	public void setRp_regdate_s(Date rp_regdate) {
-		this.rp_regdate_s = setDate.format(rp_regdate);
-	}
-
-
-
-
-
 	public Reply() {
 		this.rp_regdate = new Date();
 	}

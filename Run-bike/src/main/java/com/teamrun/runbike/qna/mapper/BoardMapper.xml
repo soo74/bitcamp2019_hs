@@ -78,11 +78,8 @@
 		
 		<!-- 문의글 수정 -->
 		<select id="boardUpdate" parameterType="com.teamrun.runbike.qna.domain.Message">
-		update board set q_title=#{q_title}, q_content=#{q_content}, q_writer=#{q_writer} where q_num=#{q_num}
+		update board set q_title=#{q_title}, q_content=#{q_content}, q_writer=#{q_writer} where q_num=#{q_num} and u_idx=#{u_idx}
 		</select>
-		
-
-
 		
 		
 		<!-- 문의글 삭제 -->

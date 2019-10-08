@@ -56,8 +56,7 @@ public class BoardListService implements BoardService{
 		
 		int index = (pgNum-1)*MESSAGE_COUNT_PER_PAGE;
 		
-		List<Message> boardList = null; 
-		
+		List<Message> boardList = null;  
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("search", searchParam);
