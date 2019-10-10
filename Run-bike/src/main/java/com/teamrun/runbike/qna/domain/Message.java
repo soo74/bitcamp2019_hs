@@ -1,7 +1,8 @@
 package com.teamrun.runbike.qna.domain;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Message {
 
@@ -11,28 +12,15 @@ public class Message {
 	private String q_title;
 	private String q_content;
 	private String q_writer;
+	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yy.MM.dd HH:mm",  timezone="GMT+18")
 	private Date regdate;
 	
-
-	private String message_regdate;
 	
-	
-	//날짜 재설정
-	SimpleDateFormat c = new SimpleDateFormat("yyyy.MM.DD HH:mm:ss");
-	
-	
-	public String getMessage_regdate() {
-		return message_regdate;
-	}
-
-	public void setMessage_regdate(Date message_regdate) {
-		this.message_regdate = c.format(message_regdate);
-	}
-
-
 
 
 	public Message() {
+		this.regdate = new Date();
 	}
 	
 
@@ -110,10 +98,13 @@ public class Message {
 		this.regdate = regdate;
 	}
 
+
+
+
 	@Override
 	public String toString() {
 		return "Message [q_num=" + q_num + ", u_idx=" + u_idx + ", q_title=" + q_title + ", q_content=" + q_content
-				+ ", q_writer=" + q_writer + ", regdate=" + regdate + ", message_regdate=" + message_regdate + "]";
+				+ ", q_writer=" + q_writer + ", regdate=" + regdate + "]";
 	}
 
 
