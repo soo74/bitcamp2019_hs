@@ -78,6 +78,8 @@ public class RestFulController {
 	}
 	
 	
+	
+	
 	/* 페이징 포함 문의리스트 */
 	@GetMapping("/list")
 	public ResponseEntity<ListViewBoardData> restboardList(@RequestParam(value = "page", defaultValue = "1") int page,

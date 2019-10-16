@@ -35,17 +35,12 @@
 	div#pagingBox {	
 		overflow: hidden;
 		/* margin-top:15px; */
-		margin : 15px 1000px;
+		/* margin : 15px 1000px; */
 	}
 	div#pagingBox>div {
 		float: left;
 		width: 30px;
-		height: 30px;
-		line-height: 30px;
-		text-align: center;
-		border : 1px solid #333;		
-		border-radius:10px;		
-		margin: 0 5px;
+	
 	}
 	
 	div.searchBox {
@@ -114,16 +109,36 @@
 		</form>
 		</div>
 	
+
 	
+
+
 	
-	<c:if test="${viewData.totalCount>0}">
-	<div id="pagingBox">
-		<c:forEach begin="1" end="${viewData.pageTotalCount}" var="num">
-			<div><a href="managelist?p=${num}&stype=${param.stype}&keyword=${param.keyword}">${num}</a> </div> 
-		</c:forEach>
-		
-	</div>
-	</c:if>
+			  
+		      <c:if test="${viewData.pageTotalCount>0}">
+			      	 
+			    <ul class="pagination justify-content-center">
+			      <li>
+			        <a class="page-link" href="managelist?p=1&stype=${param.stype}&keyword=${param.keyword}">
+			          <span>처음</span>
+			        </a>
+			      </li>	    
+			            <div id="pagingBox">
+							<c:forEach begin="1" end="${viewData.pageTotalCount}" var="num">
+								<div><a class="page-link" href="managelist?p=${num}&stype=${param.stype}&keyword=${param.keyword}">${num}</a></div>
+							</c:forEach>
+						</div>
+			      <li>
+			        <a class="page-link" href="managelist?p=${viewData.pageTotalCount}&stype=${param.stype}&keyword=${param.keyword}">
+			          <span>마지막</span>
+			        </a>
+			      </li>
+			    </ul>
+		 	</c:if>
+		 	
+	
+
+	<div style="text-align:center"><a href="../adminpage/managelist">목록으로 돌아가기</a></div>	
 	
 </div>
 

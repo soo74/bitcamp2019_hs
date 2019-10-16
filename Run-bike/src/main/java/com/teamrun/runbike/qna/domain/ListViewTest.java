@@ -1,27 +1,21 @@
-package com.teamrun.runbike.admin.domain;
+package com.teamrun.runbike.qna.domain;
 
 import java.util.List;
 
-import com.teamrun.runbike.user.domain.UserInfo;
-
-
-public class ListViewAdmin {
+public class ListViewTest {
 	
-	
-	private List<UserInfo> memberList;
-	private int totalCount ;
+	private List<Message> testList;
+	private int totalCount;
 	private int no;
 	private int currentPageNumber;
 	private int pageTotalCount;
 	
-
 	
-
-	public List<UserInfo> getMemberList() {
-		return memberList;
+	public List<Message> getTestList() {
+		return testList;
 	}
-	public void setMemberList(List<UserInfo> memberList) {
-		this.memberList = memberList;
+	public void setTestList(List<Message> testList) {
+		this.testList = testList;
 	}
 	public int getTotalCount() {
 		return totalCount;
@@ -47,7 +41,6 @@ public class ListViewAdmin {
 	public void setPageTotalCount(int pageTotalCount) {
 		this.pageTotalCount = pageTotalCount;
 	}
-
 	
 	
 	

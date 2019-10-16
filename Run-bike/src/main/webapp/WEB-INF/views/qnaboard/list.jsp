@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,6 +90,23 @@
 		<article id="searchBox"></article>
 
 		<article id="paging"> </article>
+		
+				 <!-- Pagination -->
+		    <ul class="pagination justify-content-center">
+		      <li class="page-item">
+		        <a class="page-link" href="#" aria-label="Previous">
+		          <span aria-hidden="true">&laquo;</span>
+		          <span class="sr-only">Previous</span>
+		        </a>
+		      </li>
+		      <li class="page-item">
+		        <a class="page-link" href="#" aria-label="Next">
+		          <span aria-hidden="true">&raquo;</span>
+		          <span class="sr-only">Next</span>
+		        </a>
+		      </li>
+		    </ul>
+		  <!-- /.container -->
 
 	
 	
@@ -102,9 +118,9 @@
 	<div id="editFrame" style="display: none" >
 	      <div class="page-header">
 	       <hr>
-	     <h3>문의글 수정</h3>
-	    </div>
-	         <hr>
+	    	 <h3>문의글 수정</h3>
+	      </div>
+	       <hr>
 	
 	         <form id="editForm" method="post" onsubmit="return false;">
 	
@@ -186,11 +202,6 @@
     		</form>
     </div>
     		
-            
-
-
-
-
 
 
 <!-- 푸터 시작 -->
@@ -259,7 +270,7 @@
 					html +='</thead>';
 					
 					html+='<tbody>';
-					var list = data.boardList;
+					var list = data.boardList;    //BoardListService의 boardList
 					for(var i = 0; i < list.length; i++){
 						//console.log(list[i]);
 						
@@ -315,6 +326,7 @@
 						
 					
 						 html+= '</tbody>';
+						 html+= '<hr>';
 				     	 table.html(html);
 				      
 				      
@@ -322,32 +334,48 @@
 					      var searching = '';
 					      
 					      
+// 					      searching += '<div class="searchBox">';
+// 					      searching += '<form id="searchBox" onsubmit="return false">';
+// 					      searching += '<select name="stype"><option value="q_title">제목</option><option value="q_writer">작성자</option></select>';
+// 					      searching += '<input type="text" name="keyword" id="keyword">';
+// 	 				      //searching += '<input type="submit" value="검색" href="#" onclick="list('+pgNum+')">';
+// 	 				      searching += '<input type="submit" value="검색" a href="list('+pgNum+')">';
+	 				      
+// 	 				     //searching += '<div><input type="submit" value="검색" a href="list?p='+pgNum+'></a></div>';
+// 	 				     // searching += '<input type="submit" value="검색" a href="list?p='+pgNum+'&stype='+${param.stype}+'&keyword='+${param.keyword}+'">'+pgNum+'</a>';
+// 					      searching += '</form>';
+// 					      searching += '</div>';
+					      
+					      
 					      searching += '<div class="searchBox">';
-					      searching += '<form id="searchBox" onsubmit="return false">';
+					      searching += '<form id="searchBox">';
 					      searching += '<select name="stype"><option value="q_title">제목</option><option value="q_writer">작성자</option></select>';
-					      searching += '<input type="text" name="keyword" id="keyword">';
+					      searching += '<input type="text" name="keyword">';
 	 				      //searching += '<input type="submit" value="검색" href="#" onclick="list('+pgNum+')">';
-	 				      searching += '<input type="submit" value="검색" a href="list('+pgNum+')">';
+	 				      searching += '<input type="submit" value="검색">';
 	 				      
 	 				     //searching += '<div><input type="submit" value="검색" a href="list?p='+pgNum+'></a></div>';
 	 				     // searching += '<input type="submit" value="검색" a href="list?p='+pgNum+'&stype='+${param.stype}+'&keyword='+${param.keyword}+'">'+pgNum+'</a>';
 					      searching += '</form>';
 					      searching += '</div>';
 					      
-	
+					     
 	
 						var paging = '';
 						
 						for(var j=1 ; j<data.pageTotalCount+1 ; j++){
-							paging += '<span class="paging"><a onclick="list('+j+')" >['+j+']</a></span> ';
-							//paging += '<div><a href="list?p='+j+'&stype=${param.stype}&keyword=${param.keyword}">['+j+']</a></div>';
-							//paging += '<div><a href="list?p='+j+'">['+j+']</a></div>';
+							//paging += '<span class="paging"><a onclick="list('+j+')" >['+j+']</a></span> ';
+							paging += '<li class="page-item"><a class="page-link" href="#" onclick="list('+j+')">'+j+'</a></li>';
+							//paging += '<div><a href="qnaboard?p='+j+'&stype=stype&keyword=keyword">+'j'+</a></div>';
+							//paging += '<div><a onclick="qnaboard?p=list('+j+')&stype=${param.stype}&keyword=${param.keyword}">['+j+']</a></div>';
+						//paging += '<div><a href="qnaboard?p='+j+'" onclick="list('+j+')">['+j+']</a></div>';
 						}
 						//<div><a href="managelist?p=${num}&stype=${param.stype}&keyword=${param.keyword}">${num}</a> </div> 
-						
+						    
 						$('#searchBox').html(searching);						
 						$('#list').html(html);
-						$('#paging').html(paging);
+						//$('#paging').html(paging);
+						$('.pagination').html(paging);
 										
 					}
 				});
@@ -378,29 +406,18 @@
 	                    $('#eq_content').val(data.q_content);
 	                }
 	            });
-
 	    }
 
 	  
 	  //수정하기(글번호를 찾아서 수정)
 		  function editSubmit(q_num){
-		        
-			  //alert($('#eu_idx').val());
-			 
 		 
 		  		var q_num =$('#eq_num').val();       
 		  		var q_writer = $('#eq_writer').val();
 		  		var q_title = $('#eq_title').val();
 		  		var q_content = $('#eq_content').val();
-		  		//var u_idx = ($('#eu_idx').val());
 		  		var u_idx = $('#eu_idx').val();
-		  		
-		  		console.log(q_num);
-		  		console.log(q_writer);
-		  		console.log(q_title);
-		  		console.log(q_content);
-		  		console.log(u_idx);
-	        
+		  			        
 	         $.ajax({
 	             //url : 'http://localhost:8080/runbike/rest/board/'+q_num,
 	             url : './rest/board/'+q_num,
@@ -409,9 +426,15 @@
 	             success : function(data){
 
 	                 if(data == 'success') {
-	                     alert('수정이 완료되었습니다.');
-	                     $('#editFrame').css('display', 'none');
-	                     list();
+	                	 
+	                	 msg = "수정하시겠습니까?";
+		 					if(confirm(msg)!=0){
+			                     alert('수정이 완료되었습니다.');
+			                     $('#editFrame').css('display', 'none');
+			                     list();					
+		 					}else{
+		 						$("#editFrame").show();
+		 					}
 	                 }
 	             },
 	             error : function(error){
@@ -549,6 +572,7 @@
 			            }
 			        });     
     		}
+ 		    
  		    
 		
 			
